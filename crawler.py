@@ -3,11 +3,21 @@
 from bs4 import BeautifulSoup
 import urllib.request
 
+
 for i in range(1,10):
 	url =  'http://xkcd.com/' + str(i)
+
 	with urllib.request.urlopen(url) as conn:
 	    page = conn.read()
+
 	soup = BeautifulSoup(page)
-	print(soup.find_all('img'))
-	print()
-	#//*[@id="comic"]/img
+	image_tags = soup.find_all('img')
+
+	for img in image_tags:
+		if 'comics' in img['src']: # img[src] is the contents of the src field
+			print('Getting ' + img['src'])
+			if '.jpg' in  img['src']:
+				urllib.request.urlretrieve(img['src'], str(i) + '.jpg')
+			elif '.png' in img['src']:
+				urllib.request.urlretrieve(img['src'], str(i) + '.png')
+			break

@@ -32,7 +32,6 @@ def getImages():
             if 'comics' in img['src']: 
                 log(INFO, 'Getting ' + img['src'])
                 
-                # this if/else kinda sucks - is there a better way to detect image type?
                 filename = ''
                 if '.jpg' in  img['src']:
                     filename = str(i) + '.jpg'
